@@ -46,7 +46,7 @@ var config = {
             test: /\.js$/,
             exclude: /node_modules/,
             include: /(admin|consumer)/,
-            loader: 'babel'
+            loader: 'react-hot!babel'
         }]
     }
 };
@@ -86,6 +86,10 @@ module.exports = config;
 
  npm install babel-loader babel-core babel-preset-es2015 --save-dev  // es2015相关
 
- 
+ npm install babel-preset-react react-hot-loader --save-dev   // react相关
+ npm install react react-dom --save
+
+ npm install silly-datetime jquery --save    // demo里用到的
+
  npm install node-args --save-dev  // 用于读取运行时传入的参数
  */

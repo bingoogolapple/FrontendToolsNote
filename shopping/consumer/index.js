@@ -2,4 +2,11 @@
  * Created by bingoogolapple on 16/8/21.
  */
 
-document.getElementById('content').innerText = "This is consumer page...";
+import React from "react";
+import ReactDOM from "react-dom";
+import CommentBox from './comment/CommentBox';
+
+ReactDOM.render(
+    <CommentBox />,
+    document.getElementById('app')
+);
