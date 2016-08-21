@@ -15,7 +15,7 @@ var config = {
         consumer: './consumer/index.js'
     },
     resolve: {
-        modulesDirectories: ["node_modules", "bower_components"]
+        modulesDirectories: ["web_modules", "node_modules", "bower_components"]
     },
     plugins: [
         new webpack.ResolverPlugin(
@@ -47,6 +47,9 @@ var config = {
             exclude: /(node_modules|bower_components)/,
             include: /(admin|consumer)/,
             loader: 'react-hot!babel'
+        }, {
+            test: /\.(woff|svg|ttf|eot)([\?]?.*)$/,
+            loader: "file-loader?name=[name].[ext]"
         }]
     }
 };
