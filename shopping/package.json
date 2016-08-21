@@ -30,6 +30,7 @@
     "jquery": "^3.1.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "semantic-ui": "^2.2.2",
     "silly-datetime": "^0.1.2"
   }
 }

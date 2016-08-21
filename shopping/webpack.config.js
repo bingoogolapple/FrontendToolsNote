@@ -47,9 +47,6 @@ var config = {
             exclude: /(node_modules|bower_components)/,
             include: /(admin|consumer)/,
             loader: 'react-hot!babel'
-        }, {
-            test: /\.(woff|svg|ttf|eot)([\?]?.*)$/,
-            loader: "file-loader?name=[name].[ext]"
         }]
     }
 };
@@ -102,4 +99,7 @@ module.exports = config;
  npm install -g bower
  bower init
  bower install semantic --save
+
+
+ npm install semantic-ui --save
  */

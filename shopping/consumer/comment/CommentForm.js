@@ -29,10 +29,53 @@ class CommentForm extends React.Component {
                 <div className="field">
                     <textarea type="text" placeholder="评论" ref="text"/>
                 </div>
+                <div className="ui small icon input">
+                    <input type="text" placeholder="Search small..."/>
+                    <i className="search icon"></i>
+                </div>
+                <i className="diners club icon"></i>
                 <button type="submit" className="ui blue button">添加评论</button>
+
+                <div className="ui labeled button" tabindex="0">
+                    <div className="ui red button">
+                        <i className="heart icon"></i> Like
+                    </div>
+                    <a className="ui basic red left pointing label">
+                        1,048
+                    </a>
+                </div>
+                <div className="ui ordered steps">
+                    <div className="completed step">
+                        <div className="content">
+                            <div className="title">Shipping</div>
+                            <div className="description">Choose your shipping options</div>
+                        </div>
+                    </div>
+                    <div className="completed step">
+                        <div className="content">
+                            <div className="title">Billing</div>
+                            <div className="description">Enter billing information</div>
+                        </div>
+                    </div>
+                    <div className="active step">
+                        <div className="content">
+                            <div className="title">Confirm Order</div>
+                            <div className="description">Verify order details</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="ui steps">
+                    <div className="step">
+                        <i className="truck icon"></i>
+                        <div className="content">
+                            <div className="title">Shipping</div>
+                            <div className="description">Choose your shipping options</div>
+                        </div>
+                    </div>
+                </div>
             </form>
         );
     }
 }
 
-export { CommentForm as default };
+export {CommentForm as default};
