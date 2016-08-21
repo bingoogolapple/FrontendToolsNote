@@ -14,14 +14,14 @@ var config = {
         admin: './admin/index.js',
         consumer: './consumer/index.js'
     },
-    // plugins: [
-    //     new webpack.optimize.UglifyJsPlugin({ // 压缩js
-    //         compress: {
-    //             warnings: false
-    //         }
-    //     }),
-    //     new webpack.optimize.OccurrenceOrderPlugin()  // 优化打包后的module方法数字参数
-    // ],
+    resolve: {
+        modulesDirectories: ["node_modules", "bower_components"]
+    },
+    plugins: [
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
+        )
+    ],
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: '/dist/',  // 如果要用到webpack的devserver的话,需要配置publicPath,标明要从哪个url去获取打包后的文件
@@ -29,7 +29,7 @@ var config = {
     },
     devtool: 'source-map',
     module: {
-        noParse: [/jquery/],  // 对于每一个webpack处理的文件,都会去编译里面所有的import或require,然后再去通过里面的字符串来寻找对应的文件,这个过程比较耗时。由于已经确定了jquery里没有import或require,所以将其排除
+        noParse: [/jquery/, /silly-datetime/],  // 对于每一个webpack处理的文件,都会去编译里面所有的import或require,然后再去通过里面的字符串来寻找对应的文件,这个过程比较耗时。由于已经确定了jquery里没有import或require,所以将其排除
         loaders: [{
             test: /\.css$/,
             loader: 'style!css'  // 从右到左执行，先执行css-loader，再执行style-loader
@@ -44,7 +44,7 @@ var config = {
             loader: 'style!css!sass'
         }, {
             test: /\.js$/,
-            exclude: /node_modules/,
+            exclude: /(node_modules|bower_components)/,
             include: /(admin|consumer)/,
             loader: 'react-hot!babel'
         }]
@@ -58,7 +58,10 @@ if (args.minify || env === 'production') {
                 warnings: false
             }
         }),
-        new webpack.optimize.OccurrenceOrderPlugin()  // 优化打包后的module方法数字参数
+        new webpack.optimize.OccurrenceOrderPlugin(),  // 优化打包后的module方法数字参数
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
+        )
     ];
 }
 
@@ -92,4 +95,8 @@ module.exports = config;
  npm install silly-datetime jquery --save    // demo里用到的
 
  npm install node-args --save-dev  // 用于读取运行时传入的参数
+
+ npm install -g bower
+ bower init
+ bower install semantic --save
  */

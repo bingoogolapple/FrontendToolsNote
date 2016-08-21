@@ -1,0 +1,20 @@
+{
+  "name": "shopping",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "bingoogolapple <bingoogolapple@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/bingoogolapple/FrontendToolsNote",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "^2.2.2"
+  }
+}
