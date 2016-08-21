@@ -5,18 +5,23 @@
 var path = require('path');
 var webpack = require('webpack');
 
-module.exports = {
+var args = require('node-args');  // 通过读取参数的方式
+
+var env = process.env.NODE_ENV;   // 通过读取环境变量的方式
+
+var config = {
     entry: {
         admin: './admin/index.js',
         consumer: './consumer/index.js'
     },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({ // 压缩
-            compress: {
-                warnings: false
-            }
-        })
-    ],
+    // plugins: [
+    //     new webpack.optimize.UglifyJsPlugin({ // 压缩js
+    //         compress: {
+    //             warnings: false
+    //         }
+    //     }),
+    //     new webpack.optimize.OccurrenceOrderPlugin()  // 优化打包后的module方法数字参数
+    // ],
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: '/dist/',  // 如果要用到webpack的devserver的话,需要配置publicPath,标明要从哪个url去获取打包后的文件
@@ -46,13 +51,28 @@ module.exports = {
     }
 };
 
+if (args.minify || env === 'production') {
+    config.plugins = [
+        new webpack.optimize.UglifyJsPlugin({ // 压缩js
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.optimize.OccurrenceOrderPlugin()  // 优化打包后的module方法数字参数
+    ];
+}
+
+module.exports = config;
+
 /*
  npm install webpack --save-dev
  npm install webpack-dev-server --save-dev
- webpack --process --colors // 打包
- 在package.json里添加 "start": "webpack-dev-server --process --colors --hot --inline"
+ webpack --progress --colors --minify // 打包,--minify参数是随便定义的,配合node-args来动态配置是否压缩js文件
+ webpack-dev-server --progress --colors --hot --inline -d // 开启测试服务  -d参数表示生成source-map,效果与配置devtool: 'source-map'一样
+ 在package.json的scripts里添加 "start": "webpack-dev-server --progress --colors --hot --inline -d"   // npm run start
+ 在package.json的scripts里添加 "build": "webpack --progress --colors --minify" // npm run build
+ 可以通过在命令的前面指定NODE_ENV=production来模拟指定环境变量 "build": "NODE_ENV=production webpack --progress --colors"
 
- 插件列表地址 https://webpack.github.io/docs/list-of-plugins.html
 
 
  npm install css-loader style-loader --save-dev  // css-loader 读取css文件和处理css文件里的一些url，比如可以改css里image的相对路径或绝对路径,style-loader 把css-loader读取的css文件内容用js写到页面的style标签里
@@ -64,5 +84,8 @@ module.exports = {
  npm install node-sass --save-dev
  npm install sass-loader --save-dev
 
- npm install babel-loader babel-core babel-preset-es2015 --save-dev
+ npm install babel-loader babel-core babel-preset-es2015 --save-dev  // es2015相关
+
+ 
+ npm install node-args --save-dev  // 用于读取运行时传入的参数
  */
