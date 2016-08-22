@@ -46,7 +46,7 @@ var config = {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,
             include: /(admin|consumer)/,
-            loader: 'react-hot!babel'
+            loaders: ['react-hot', 'babel?presets[]=es2015&presets[]=react']
         }]
     }
 };
